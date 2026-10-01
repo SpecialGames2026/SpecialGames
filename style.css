@@ -539,6 +539,51 @@ img {
     }
 }
 
+/* 栏内组件：屏幕窄于 900px 时每行至少两格 */
+@media (max-width: 900px) {
+    .栏 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .DFk,
+    .CHk {
+        width: auto;
+        height: auto;
+        margin: 0;
+        padding: 12px;
+        gap: 6px;
+        border-radius: 16px;
+    }
+
+    .DFk img,
+    .CHk img {
+        width: 100%;
+        height: auto;
+        max-width: 190px;
+        aspect-ratio: 1 / 1;
+        border-radius: 12px;
+    }
+
+    .DFk p,
+    .CHk p {
+        font-size: 13px;
+    }
+
+    .DFk p + p,
+    .CHk p + p {
+        font-size: 11px;
+    }
+
+    .栏框 {
+        width: auto;
+        height: auto;
+        margin: 0;
+        aspect-ratio: 1 / 1;
+    }
+}
+
 @media (max-width: 760px) {
     .navbar {
         height: 64px;
@@ -566,11 +611,6 @@ img {
 
     .main {
         padding: 14px;
-    }
-
-    .DFk,
-    .CHk {
-        margin: 10px;
     }
 
     .title-card h1 {
