@@ -1,0 +1,595 @@
+/* ===============================================================
+   硕果游戏 SpecialGames 官网 - 全局样式
+   统一配色（暗色游戏风）+ 排版 + 动效
+   =============================================================== */
+
+:root {
+    /* 背景与表面 */
+    --bg: #0a0e1f;
+    --bg-2: #111735;
+    --surface: #16203f;
+    --surface-2: #1d2a55;
+
+    /* 边框 */
+    --border: rgba(120, 160, 255, 0.16);
+    --border-strong: rgba(140, 180, 255, 0.38);
+
+    /* 文字 */
+    --text: #eef4ff;
+    --text-dim: #a9b8d6;
+
+    /* 强调色 */
+    --accent: #4d9fff;
+    --accent-2: #38d6ff;
+    --accent-soft: rgba(77, 159, 255, 0.14);
+    --gold: #ffc94d;
+    --grad: linear-gradient(135deg, #4d9fff 0%, #38d6ff 100%);
+
+    /* 圆角 / 阴影 / 过渡 */
+    --radius: 16px;
+    --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.35);
+    --shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+    --shadow-glow: 0 14px 44px rgba(77, 159, 255, 0.4);
+    --t: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100vh;
+}
+
+body {
+    font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(1200px 600px at 15% -10%, rgba(77, 159, 255, 0.18), transparent 60%),
+        radial-gradient(900px 500px at 100% 0%, rgba(56, 214, 255, 0.12), transparent 55%),
+        linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* ============ 顶部导航 ============ */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 76px;
+    padding: 0 28px;
+    gap: 16px;
+    background: rgba(13, 18, 40, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    z-index: 20;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand img {
+    height: 52px;
+    width: auto;
+    transition: transform var(--t);
+}
+
+.brand:hover img {
+    transform: rotate(-6deg) scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav-link {
+    position: relative;
+    padding: 12px 0;
+    width: 200px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-dim);
+    border: 1px solid rgba(170, 205, 255, 0.75);
+    border-radius: 10px;
+    transition: color var(--t), background var(--t), border-color var(--t), box-shadow var(--t);
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 6px;
+    width: 0;
+    height: 2px;
+    background: var(--grad);
+    transform: translateX(-50%);
+    transition: width var(--t);
+    border-radius: 2px;
+}
+
+.nav-link:hover {
+    color: var(--text);
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(77, 159, 255, 0.35);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 45%;
+}
+
+.nav-link.active {
+    color: #ffffff;
+    border-color: var(--accent-2);
+    box-shadow: 0 0 10px rgba(56, 214, 255, 0.4);
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+}
+
+.avatar img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-strong);
+    transition: transform var(--t), border-color var(--t);
+    cursor: pointer;
+}
+
+.avatar:hover img {
+    transform: scale(1.1);
+    border-color: var(--accent);
+}
+
+/* ============ 主内容容器 ============ */
+.main {
+    flex: 1;
+    width: 100%;
+    overflow: auto;
+    display: flex;
+    gap: 18px;
+    padding: 24px;
+    min-height: 0;
+}
+
+.main.center {
+    justify-content: center;
+}
+
+/* 使用 auto margin 垂直居中：内容超出视口时可正常向下滚动，避免顶部被裁切 */
+.main.center > * {
+    margin-block: auto;
+}
+
+.content-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    min-width: 0;
+}
+
+/* 防止弹性布局压缩子元素（横幅/标题/网格被压塌） */
+.content-col > * {
+    flex-shrink: 0;
+}
+
+/* ============ 通用面板 / 卡片 ============ */
+.panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+}
+
+.yinying {
+    box-shadow: var(--shadow);
+}
+
+/* ============ 侧边栏（游戏列表） ============ */
+.ceBian {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 240px;
+    flex-shrink: 0;
+    gap: 4px;
+    padding: 4px;
+}
+
+.DF,
+.CH {
+    display: block;
+    width: 100%;
+    padding: 14px 18px;
+    margin: 4px 0;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: background var(--t), color var(--t), transform var(--t), border-color var(--t);
+}
+
+.DF {
+    background: var(--accent-soft);
+}
+
+.CH {
+    background: rgba(255, 201, 77, 0.12);
+}
+
+.DF:hover,
+.DF.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    transform: translateX(6px);
+}
+
+.CH:hover {
+    background: var(--gold);
+    color: #1a1505;
+    transform: translateX(6px);
+}
+
+/* ============ 首页横幅 ============ */
+.home-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 12px;
+}
+
+.banner {
+    display: block;
+    width: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform var(--t), box-shadow var(--t);
+}
+
+.banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.banner:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glow);
+}
+
+.hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+/* ============ 游戏卡片（Games） ============ */
+.栏 {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    gap: 12px;
+}
+
+.DFk,
+.CHk {
+    width: 240px;
+    height: 300px;
+    margin: 20px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--border-strong);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+}
+
+.DFk:hover,
+.CHk:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-glow);
+}
+
+.DFk img,
+.CHk img {
+    width: 190px;
+    height: 190px;
+    border-radius: 16px;
+    object-fit: cover;
+    transition: transform var(--t);
+}
+
+.DFk:hover img,
+.CHk:hover img {
+    transform: scale(1.06);
+}
+
+.DFk p,
+.CHk p {
+    color: var(--text);
+    font-size: 16px;
+}
+
+.DFk p + p,
+.CHk p + p {
+    color: var(--text-dim);
+    font-size: 14px;
+}
+
+/* 龙之芯系列：金色配色，与侧边栏 .CH 统一 */
+.CHk {
+    background: linear-gradient(180deg, rgba(255, 201, 77, 0.20), rgba(255, 201, 77, 0.05));
+    border-color: rgba(255, 201, 77, 0.45);
+}
+
+.CHk:hover {
+    border-color: var(--gold);
+    box-shadow: 0 14px 44px rgba(255, 201, 77, 0.4);
+}
+
+/* ============ 游戏详情页 ============ */
+.title-card {
+    width: 98%;
+    text-align: center;
+    padding: 24px;
+    margin: 18px 0;
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+}
+
+.title-card h1 {
+    font-size: 36px;
+    letter-spacing: 1px;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.栏框 {
+    width: 220px;
+    height: 220px;
+    margin: 12px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.栏框:hover {
+    transform: translateY(-6px) scale(1.02);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-glow);
+}
+
+.栏框 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.栏框:hover img {
+    transform: scale(1.08);
+}
+
+/* ============ 社区页 ============ */
+.feed {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 60vh;
+}
+
+.placeholder-text {
+    color: var(--text-dim);
+    font-size: 18px;
+}
+
+.side-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+    gap: 12px;
+}
+
+.side-block {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    color: var(--text-dim);
+    font-size: 15px;
+}
+
+.side-block.grow {
+    flex: 1;
+}
+
+.search {
+    width: 75%;
+    height: 50px;
+    padding: 10px 18px;
+    font-size: 16px;
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color var(--t), background var(--t), box-shadow var(--t);
+}
+
+.search::placeholder {
+    color: var(--text-dim);
+}
+
+.search:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.empty-state {
+    padding: 48px 64px;
+    color: var(--text-dim);
+    font-size: 18px;
+}
+
+/* ============ 入场动效 ============ */
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rise {
+    animation: rise 0.55s var(--t) both;
+}
+
+/* ============ 滚动条（深色主题） ============ */
+.main::-webkit-scrollbar {
+    width: 10px;
+}
+
+.main::-webkit-scrollbar-thumb {
+    background: var(--surface-2);
+    border-radius: 6px;
+}
+
+.main::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+.main::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ============ 响应式 ============ */
+@media (max-width: 1050px) {
+    .nav-links {
+        flex: 1;
+        min-width: 0;
+        justify-content: center;
+    }
+
+    .nav-link {
+        width: auto;
+        max-width: 200px;
+        flex: 1 1 0;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 760px) {
+    .navbar {
+        height: 64px;
+        padding: 0 14px;
+        gap: 10px;
+    }
+
+    .brand img {
+        height: 40px;
+    }
+
+    .nav-link {
+        padding: 10px 4px;
+        font-size: 14px;
+    }
+
+    .avatar img {
+        width: 38px;
+        height: 38px;
+    }
+
+    .ceBian {
+        display: none;
+    }
+
+    .main {
+        padding: 14px;
+    }
+
+    .DFk,
+    .CHk {
+        margin: 10px;
+    }
+
+    .title-card h1 {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 420px) {
+    .nav-link {
+        font-size: clamp(9px, 3vw, 12px);
+        padding: 10px 2px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+    }
+}
