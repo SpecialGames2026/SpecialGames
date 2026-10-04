@@ -147,6 +147,7 @@ img {
     color: #ffffff;
     border-color: var(--accent-2);
     box-shadow: 0 0 10px rgba(56, 214, 255, 0.4);
+    pointer-events: none;
 }
 
 .avatar {
